@@ -16,6 +16,8 @@
 		7727E2D51D1875CD00FE692D /* IGTTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7727E2D41D1875CD00FE692D /* IGTTestTests.swift */; };
 		7727E2E11D18772900FE692D /* MasterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7727E2E01D18772900FE692D /* MasterViewModel.swift */; };
 		778D8F2C1D192A2900DB31C4 /* MastersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778D8F2B1D192A2900DB31C4 /* MastersViewModel.swift */; };
+		77C4E71D1D194C0400353AF3 /* MasterList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C4E71C1D194C0400353AF3 /* MasterList.swift */; };
+		77C4E71F1D194CBD00353AF3 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C4E71E1D194CBD00353AF3 /* Game.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +44,8 @@
 		7727E2D61D1875CD00FE692D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7727E2E01D18772900FE692D /* MasterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterViewModel.swift; sourceTree = "<group>"; };
 		778D8F2B1D192A2900DB31C4 /* MastersViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MastersViewModel.swift; sourceTree = "<group>"; };
+		77C4E71C1D194C0400353AF3 /* MasterList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterList.swift; sourceTree = "<group>"; };
+		77C4E71E1D194CBD00353AF3 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +87,7 @@
 		7727E2BC1D1875CD00FE692D /* IGTTest */ = {
 			isa = PBXGroup;
 			children = (
+				77C4E71B1D19499A00353AF3 /* Model */,
 				7727E2DF1D18771800FE692D /* ViewModel */,
 				7727E2BD1D1875CD00FE692D /* AppDelegate.swift */,
 				7727E2BF1D1875CD00FE692D /* MasterViewController.swift */,
@@ -111,6 +116,15 @@
 				778D8F2B1D192A2900DB31C4 /* MastersViewModel.swift */,
 			);
 			name = ViewModel;
+			sourceTree = "<group>";
+		};
+		77C4E71B1D19499A00353AF3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				77C4E71C1D194C0400353AF3 /* MasterList.swift */,
+				77C4E71E1D194CBD00353AF3 /* Game.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,6 +229,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7727E2E11D18772900FE692D /* MasterViewModel.swift in Sources */,
+				77C4E71D1D194C0400353AF3 /* MasterList.swift in Sources */,
+				77C4E71F1D194CBD00353AF3 /* Game.swift in Sources */,
 				7727E2C21D1875CD00FE692D /* DetailViewController.swift in Sources */,
 				7727E2C01D1875CD00FE692D /* MasterViewController.swift in Sources */,
 				7727E2BE1D1875CD00FE692D /* AppDelegate.swift in Sources */,

@@ -21,6 +21,8 @@ class MastersViewModel {
         }
     }
     
+    var timeInterval : NSTimeInterval = 5 //60 * 60
+    var model : MasterList?
     var delegate : MastersViewModelDelegate?
     
     init() {
@@ -36,7 +38,7 @@ class MastersViewModel {
                     
                     d.writeToURL(fileURL, atomically: true)
                     
-                    self.delegate?.scheduleNotification(NSDate(timeIntervalSinceNow: 10), alertAction: "Show games", alertTitle: "Games", alertBody: "Congratulations you have new games to play!", withFilename: file)
+                    self.delegate?.scheduleNotification(NSDate(timeIntervalSinceNow: self.timeInterval), alertAction: "Show games", alertTitle: "Games", alertBody: "Congratulations you have new games to play!", withFilename: file)
                 }
             }
         }
@@ -51,9 +53,53 @@ class MastersViewModel {
     
     @objc private func methodOfReceivedNotification_showFile(notification : NSNotification) {        
         if let name = notification.object as? String, let fileURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first?.URLByAppendingPathComponent(name), d = NSData(contentsOfURL: fileURL) {
-                
-            let result = NSString(data: d, encoding: NSASCIIStringEncoding)!
-            print(result)
+
+            do {
+                let dictionary = try NSJSONSerialization.JSONObjectWithData(d, options: NSJSONReadingOptions(rawValue: 0)) as? NSDictionary
+                if let d = dictionary, currency = d["currency"] as? String, dataDict = d["data"] as? [NSDictionary] {
+                    let data = dataDict.map({ d -> Game in
+                        var name = ""
+                        if let n = d["name"] as? String {
+                            name = n
+                        }
+                        var jackpot = 0
+                        if let j = d["jackpot"] as? Int {
+                            jackpot = j
+                        }
+                        var date = NSDate()
+                        if let dateRaw = d["date"] as? String, dateFormatted = NSDateFormatter.nsdateFromString(dateRaw) {
+                            date = dateFormatted
+                        }
+                        return Game(name: name, jackpot: jackpot, date: date)
+                    })
+                    self.model = MasterList(currency: currency, data: data)
+                } else {
+                    // more error handling
+                }
+                print(dictionary)
+            } catch let error as NSError {
+                print(error)
+            }
         }
+    }
+}
+
+
+extension NSDateFormatter {
+    static func formatIGT() -> String {
+        return "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+    }
+    
+    static func nsdateFromString(string : String) -> NSDate? {
+        let formatter = NSDateFormatter()
+        formatter.locale = NSLocale(localeIdentifier: "en_UK")
+        formatter.dateFormat = NSDateFormatter.formatIGT()
+        
+        guard let date = formatter.dateFromString(string) else {
+            assert(false, "no date from string")
+            return nil
+        }
+        
+        return date
     }
 }
