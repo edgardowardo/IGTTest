@@ -9,12 +9,17 @@
 import Foundation
 
 protocol MastersViewModelDelegate {
-    /// Schedule notification uses UIKit. So delegate this function over the view controller passing all necessary info from the view model.
+    /// Use local notification to schedule expiration. GCD and NSOperationQueue will canccel expiration if app is manually killed. 
+    /// This way with local notification, the user is prompted even when the app is not running. Schedule notification uses UIKit. 
+    /// We do not want UIKit in the view model. So use a delegate to perform this task over the view controller passing all necessary 
+    /// info from the view model.
     func scheduleNotification(fireDate: NSDate, alertAction: String, alertTitle: String, alertBody: String, withFilename filename: String)
 }
 
-class MastersViewModel {
+class MastersViewModel : NSObject {
 
+    /// Key used for NSNotification coming from the AppDelegate's callback on the local notification with payload. Maybe there's a
+    /// more elegant solution than this. I tried to parse the navigation tree from the AppDelegate but it looked very hacky and ugly.
     struct Notification {
         struct Identifier {
             static let showFile = "NotificationIdentifierOf_showFile"
@@ -22,10 +27,20 @@ class MastersViewModel {
     }
     
     var timeInterval : NSTimeInterval = 5 //60 * 60
-    var model : MasterList?
     var delegate : MastersViewModelDelegate?
     
-    init() {
+    /// The viewModel inherits from NSObject since we are using KVO to inform the view controller of changes to the model. An 
+    /// Alternative to KVO is NSNotification, however this has global scope and breaks local reasoning. If allowed, I would have used
+    /// RxSwift to observe state changes since it's more elegant and easier to use.
+    dynamic var model : MasterList?
+    
+    var title : String {
+        return "IGT"
+    }
+    
+    override init() {
+        super.init()
+        
         let request = NSMutableURLRequest(URL: NSURL(string: "https://dl.dropboxusercontent.com/u/49130683/nativeapp-test.json")!)
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request){ (data, response, error) -> Void in
@@ -74,7 +89,7 @@ class MastersViewModel {
                     })
                     self.model = MasterList(currency: currency, data: data)
                 } else {
-                    // more error handling
+                    print("could not be parsed")
                 }
                 print(dictionary)
             } catch let error as NSError {

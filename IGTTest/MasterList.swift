@@ -8,7 +8,13 @@
 
 import Foundation
 
-struct MasterList {
-    var currency : String
-    var data : [Game]
+class MasterList : NSObject {
+    var currency : String!
+    var data : [Game]!
+    
+    init(currency : String, data : [Game]) {
+        super.init()
+        self.currency = currency
+        self.data = data
+    }
 }
