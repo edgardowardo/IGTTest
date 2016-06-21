@@ -1,5 +1,5 @@
 //
-//  DetailViewController.swift
+//  GameViewController.swift
 //  IGTTest
 //
 //  Created by EDGARDO AGNO on 20/06/2016.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class GameViewController: UIViewController {
 
     @IBOutlet weak var detailDescriptionLabel: UILabel!
-
+    @IBOutlet weak var dateLabel: UILabel!
 
     var detailItem: AnyObject? {
         didSet {
