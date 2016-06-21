@@ -13,39 +13,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         let splitViewController = self.window!.rootViewController as! UISplitViewController
         let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
         navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
         splitViewController.delegate = self
+
+        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound, .Alert], categories: nil))
+        
+        if let o = launchOptions, notification = o[UIApplicationLaunchOptionsLocalNotificationKey] as? UILocalNotification {
+            handleNotification(notification, forApplication: application)
+        }
         return true
     }
-
-    func applicationWillResignActive(application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-    }
-
-    func applicationDidEnterBackground(application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    }
-
-    func applicationWillEnterForeground(application: UIApplication) {
-        // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    }
-
-    func applicationDidBecomeActive(application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    }
-
-    func applicationWillTerminate(application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-
-    // MARK: - Split view
 
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController:UIViewController, ontoPrimaryViewController primaryViewController:UIViewController) -> Bool {
         guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
@@ -56,6 +37,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         }
         return false
     }
+    
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        handleNotification(notification, forApplication: application)
+    }
+    
+    func handleNotification(notification : UILocalNotification, forApplication application : UIApplication) {
+        var title = "Hello there!"
+        if #available(iOS 8.2, *) {
+            title = notification.alertTitle!
+        }
+        let a = UIAlertController(title: title, message: notification.alertBody!, preferredStyle: UIAlertControllerStyle.Alert)
+        a.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
+   
+        if let file = notification.userInfo?["file"] as? String, fileURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first?.URLByAppendingPathComponent(file), d = NSData(contentsOfURL: fileURL) {
+            
+            let result = NSString(data: d, encoding: NSASCIIStringEncoding)!
+            print(result)
+        }
+        
+//        if let notificationId = notification.userInfo?["notificationId"] as? String, notification = realm.objects(NotificationObject).filter("id == '\(notificationId)'").first {
+//            
+//            showCurrentObjectFromNotification(notification)
+//        }
+        
+        //read
+//        if let fileURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first?.URLByAppendingPathComponent(file) {
+//            
+//            if let d = NSData(contentsOfURL: fileURL) {
+//                let result = NSString(data: d, encoding: NSASCIIStringEncoding)!
+//                print(result)
+//            }
+//        }
+        
+        
+        self.window?.rootViewController?.presentViewController(a, animated: true, completion: nil)
+        
+        
+//        self.window?.visibleViewController?.presentViewController(a, animated: true, completion: nil)
+    }
+    
 
 }
 
