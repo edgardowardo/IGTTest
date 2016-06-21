@@ -9,7 +9,7 @@
 import Foundation
 
 protocol MastersViewModelDelegate {
-    /// Use local notification to schedule expiration. GCD and NSOperationQueue will canccel expiration if app is manually killed. 
+    /// Use local notification to schedule expiration. NSTime, GCD and NSOperationQueue will canccel expiration if app is manually killed.
     /// This way with local notification, the user is prompted even when the app is not running. Schedule notification uses UIKit. 
     /// We do not want UIKit in the view model. So use a delegate to perform this task over the view controller passing all necessary 
     /// info from the view model.
@@ -90,7 +90,8 @@ class MastersViewModel : NSObject {
                             jackpot = j
                         }
                         var date = NSDate()
-                        if let dateRaw = d["date"] as? String, dateFormatted = NSDateFormatter.nsdateFromString(dateRaw) {
+
+                        if let dateRaw = d["date"] as? String, dateFormatted = nsdateFromString(dateRaw) {
                             date = dateFormatted
                         }
                         return Game(name: name, jackpot: jackpot, date: date)
@@ -105,18 +106,12 @@ class MastersViewModel : NSObject {
             }
         }
     }
-}
-
-
-extension NSDateFormatter {
-    static func formatIGT() -> String {
-        return "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-    }
-    
-    static func nsdateFromString(string : String) -> NSDate? {
+        
+    private func nsdateFromString(string : String) -> NSDate? {
         let formatter = NSDateFormatter()
-        formatter.locale = NSLocale(localeIdentifier: "en_UK")
-        formatter.dateFormat = NSDateFormatter.formatIGT()
+        let locale = NSBundle.mainBundle().preferredLocalizations.first ?? "en_UK"
+        formatter.locale = NSLocale(localeIdentifier: locale)
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
         
         guard let date = formatter.dateFromString(string) else {
             assert(false, "no date from string")

@@ -17,13 +17,17 @@ struct GameViewModel {
     }
     
     var jackpot : String {
-        // TODO: Local and currency
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = .DecimalStyle
+        
+        if let jackpot = formatter.stringFromNumber(NSNumber(integer: model.jackpot)) {
+            return "\(currency) \(jackpot)"
+        }
         return "\(currency) \(model.jackpot)"
     }
     
     var date : String {
-        // TODO: localise
-        return "\(model.date)"
+        let date = NSDateFormatter.localizedStringFromDate(model.date, dateStyle: .MediumStyle, timeStyle: .ShortStyle)
+        return "\(date)"
     }
-    
 }
