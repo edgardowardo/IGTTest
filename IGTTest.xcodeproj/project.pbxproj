@@ -15,6 +15,7 @@
 		7727E2CA1D1875CD00FE692D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7727E2C81D1875CD00FE692D /* LaunchScreen.storyboard */; };
 		7727E2D51D1875CD00FE692D /* IGTTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7727E2D41D1875CD00FE692D /* IGTTestTests.swift */; };
 		7727E2E11D18772900FE692D /* MasterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7727E2E01D18772900FE692D /* MasterViewModel.swift */; };
+		778D8F2C1D192A2900DB31C4 /* MastersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778D8F2B1D192A2900DB31C4 /* MastersViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		7727E2D41D1875CD00FE692D /* IGTTestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTTestTests.swift; sourceTree = "<group>"; };
 		7727E2D61D1875CD00FE692D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7727E2E01D18772900FE692D /* MasterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterViewModel.swift; sourceTree = "<group>"; };
+		778D8F2B1D192A2900DB31C4 /* MastersViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MastersViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				7727E2E01D18772900FE692D /* MasterViewModel.swift */,
+				778D8F2B1D192A2900DB31C4 /* MastersViewModel.swift */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -215,6 +218,7 @@
 				7727E2C21D1875CD00FE692D /* DetailViewController.swift in Sources */,
 				7727E2C01D1875CD00FE692D /* MasterViewController.swift in Sources */,
 				7727E2BE1D1875CD00FE692D /* AppDelegate.swift in Sources */,
+				778D8F2C1D192A2900DB31C4 /* MastersViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,6 +410,7 @@
 				7727E2DB1D1875CD00FE692D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7727E2DC1D1875CD00FE692D /* Build configuration list for PBXNativeTarget "IGTTestTests" */ = {
 			isa = XCConfigurationList;
@@ -414,6 +419,7 @@
 				7727E2DE1D1875CD00FE692D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

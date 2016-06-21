@@ -22,9 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
         application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound, .Alert], categories: nil))
         
-        if let o = launchOptions, notification = o[UIApplicationLaunchOptionsLocalNotificationKey] as? UILocalNotification {
-            handleNotification(notification, forApplication: application)
-        }
         return true
     }
 
@@ -49,34 +46,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         }
         let a = UIAlertController(title: title, message: notification.alertBody!, preferredStyle: UIAlertControllerStyle.Alert)
         a.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
-   
-        if let file = notification.userInfo?["file"] as? String, fileURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first?.URLByAppendingPathComponent(file), d = NSData(contentsOfURL: fileURL) {
-            
-            let result = NSString(data: d, encoding: NSASCIIStringEncoding)!
-            print(result)
+
+        if let filename = notification.userInfo?["showFile"] as? String {
+            NSNotificationCenter.defaultCenter().postNotificationName(MastersViewModel.Notification.Identifier.showFile, object: filename)
         }
         
-//        if let notificationId = notification.userInfo?["notificationId"] as? String, notification = realm.objects(NotificationObject).filter("id == '\(notificationId)'").first {
-//            
-//            showCurrentObjectFromNotification(notification)
-//        }
-        
-        //read
-//        if let fileURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first?.URLByAppendingPathComponent(file) {
-//            
-//            if let d = NSData(contentsOfURL: fileURL) {
-//                let result = NSString(data: d, encoding: NSASCIIStringEncoding)!
-//                print(result)
-//            }
-//        }
-        
-        
         self.window?.rootViewController?.presentViewController(a, animated: true, completion: nil)
-        
-        
-//        self.window?.visibleViewController?.presentViewController(a, animated: true, completion: nil)
     }
-    
-
 }
-

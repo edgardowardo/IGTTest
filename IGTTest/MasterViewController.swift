@@ -12,12 +12,13 @@ class MasterViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
     var objects = [AnyObject]()
-    var viewModel = MasterViewModel()
+    var viewModel = MastersViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
+        self.viewModel.delegate = self
 
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
         self.navigationItem.rightBarButtonItem = addButton
@@ -26,7 +27,7 @@ class MasterViewController: UITableViewController {
             self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
     }
-
+    
     override func viewWillAppear(animated: Bool) {
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
@@ -90,5 +91,24 @@ class MasterViewController: UITableViewController {
     }
 
 
+}
+
+extension MasterViewController : MastersViewModelDelegate {
+    func scheduleNotification(fireDate: NSDate, alertAction: String, alertTitle: String, alertBody: String, withFilename filename: String) {
+        let application = UIApplication.sharedApplication()
+        application.cancelAllLocalNotifications()
+        
+        let notification = UILocalNotification()
+        notification.timeZone = NSTimeZone.defaultTimeZone()
+        notification.fireDate = fireDate
+        notification.alertAction = alertAction
+        if #available(iOS 8.2, *) {
+            notification.alertTitle = alertTitle
+        }
+        notification.alertBody = alertBody
+        notification.soundName = UILocalNotificationDefaultSoundName
+        notification.userInfo = ["showFile": filename]
+        application.scheduleLocalNotification(notification)
+    }
 }
 
