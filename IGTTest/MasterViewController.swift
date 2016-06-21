@@ -56,12 +56,11 @@ class MasterViewController: UITableViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDetail" {
-            if let indexPath = self.tableView.indexPathForSelectedRow {
-//                let object = objects[indexPath.row] as! NSDate
-//                let controller = (segue.destinationViewController as! UINavigationController).topViewController as! GameViewController
-//                controller.detailItem = object
-//                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-//                controller.navigationItem.leftItemsSupplementBackButton = true
+            if let indexPath = self.tableView.indexPathForSelectedRow, g = viewModel.model?.data[indexPath.row] {
+                let c = (segue.destinationViewController as! UINavigationController).topViewController as! GameViewController
+                c.viewModel = GameViewModel(currency: viewModel.currency, model: g)
+                c.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+                c.navigationItem.leftItemsSupplementBackButton = true
             }
         }
     }

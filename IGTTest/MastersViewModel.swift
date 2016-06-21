@@ -38,6 +38,14 @@ class MastersViewModel : NSObject {
         return "IGT"
     }
     
+    var currency : String {
+        if let m = model {
+            return m.currency
+        } else {
+            return ""
+        }
+    }
+    
     override init() {
         super.init()
         
@@ -91,7 +99,7 @@ class MastersViewModel : NSObject {
                 } else {
                     print("could not be parsed")
                 }
-                print(dictionary)
+//                print(dictionary)
             } catch let error as NSError {
                 print(error)
             }

@@ -12,20 +12,18 @@ class GameViewController: UIViewController {
 
     @IBOutlet weak var detailDescriptionLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-
-    var detailItem: AnyObject? {
+    
+    var viewModel : GameViewModel? {
         didSet {
-            // Update the view.
             self.configureView()
         }
     }
-
+    
     func configureView() {
-        // Update the user interface for the detail item.
-        if let detail = self.detailItem {
-            if let label = self.detailDescriptionLabel {
-                label.text = detail.description
-            }
+        if let vm = viewModel, jackpot = detailDescriptionLabel, date = dateLabel {
+            self.title = vm.title
+            jackpot.text = vm.jackpot
+            date.text = vm.date
         }
     }
 
@@ -39,7 +37,5 @@ class GameViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 
