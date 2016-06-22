@@ -1,4 +1,4 @@
-#Design Considerations and Walkthrough
+#IGT Design Considerations and Walkthrough
 
 I used an MVVM architecture in order to separate the concern of presenting the view rather than placing all the business logic into the view controller making the MVC a massive view controller. 
 
