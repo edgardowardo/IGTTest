@@ -1,6 +1,6 @@
 #Design Considerations and Walkthrough
 
-I used an MVVM architecture in order to separate the concern rather than placing all the business logic into the view controller making the MVC a massive view controller. I used NSFileManager to save the data. Instead of saving the data into a text file, the NSData is written into file because it is readily available and extra processing without a clear purpose of saving into text file is not necessary.
+I used an MVVM architecture in order to separate the formatting concern rather than placing all the business logic into the view controller making the MVC a massive view controller. I used NSFileManager to save the data. Instead of saving the data into a text file, the NSData is written into file because it is readily available and extra processing without a clear purpose of saving into text file is not necessary.
 
 The models are preferably created as structures with value type semantics. However the MasterList model needed to be an NSObject because I used KVO to bind asynchronous changes from the view model to the view controller. An alternative to KVO is NSNotification, however this has global scope and breaks local reasoning. If allowed, I would have used RxSwift to observe state changes since it's more elegant and easier to use.
 
