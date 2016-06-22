@@ -28,7 +28,7 @@ class IGTTestTests: XCTestCase {
         mc.viewModel.setup(3) { (data, response, error) in
             XCTAssertNotNil(data, "data should not be nil")
             XCTAssertNil(error, "error should be nil")
-            XCTAssertEqual(response!.URL!.absoluteString, "https://dl.dropboxusercontent.com/u/49130683/nativeapp-test.json", "HTTP response URL should be equal to original URL")
+            XCTAssertEqual(response!.URL!.absoluteString, "https://dl.dropboxusercontent.com/u/49130683/nativeapp-test.json/", "HTTP response URL should be equal to original URL")
             
             let application = UIApplication.sharedApplication()
             XCTAssertNotNil(application.scheduledLocalNotifications, "scheduledLocalNotifications should not be nil")

@@ -15,6 +15,7 @@
 		7727E2CA1D1875CD00FE692D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7727E2C81D1875CD00FE692D /* LaunchScreen.storyboard */; };
 		7727E2D51D1875CD00FE692D /* IGTTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7727E2D41D1875CD00FE692D /* IGTTestTests.swift */; };
 		7727E2E11D18772900FE692D /* MasterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7727E2E01D18772900FE692D /* MasterViewModel.swift */; };
+		775970681D1AD55E002CD80F /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775970671D1AD55E002CD80F /* Router.swift */; };
 		777325FA1D196ED400059003 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777325F91D196ED400059003 /* GameViewModel.swift */; };
 		778D8F2C1D192A2900DB31C4 /* MastersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778D8F2B1D192A2900DB31C4 /* MastersViewModel.swift */; };
 		77C4E71D1D194C0400353AF3 /* MasterList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C4E71C1D194C0400353AF3 /* MasterList.swift */; };
@@ -45,6 +46,7 @@
 		7727E2D41D1875CD00FE692D /* IGTTestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTTestTests.swift; sourceTree = "<group>"; };
 		7727E2D61D1875CD00FE692D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7727E2E01D18772900FE692D /* MasterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterViewModel.swift; sourceTree = "<group>"; };
+		775970671D1AD55E002CD80F /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		777325F91D196ED400059003 /* GameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		778D8F2B1D192A2900DB31C4 /* MastersViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MastersViewModel.swift; sourceTree = "<group>"; };
 		77C4E71C1D194C0400353AF3 /* MasterList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterList.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				7727E2DF1D18771800FE692D /* ViewModel */,
 				77C4E7201D19643500353AF3 /* ViewControllers */,
 				7727E2BD1D1875CD00FE692D /* AppDelegate.swift */,
+				775970671D1AD55E002CD80F /* Router.swift */,
 				7727E2C31D1875CD00FE692D /* Main.storyboard */,
 				7727E2C61D1875CD00FE692D /* Assets.xcassets */,
 				7727E2C81D1875CD00FE692D /* LaunchScreen.storyboard */,
@@ -244,6 +247,7 @@
 			files = (
 				777325FA1D196ED400059003 /* GameViewModel.swift in Sources */,
 				7727E2E11D18772900FE692D /* MasterViewModel.swift in Sources */,
+				775970681D1AD55E002CD80F /* Router.swift in Sources */,
 				77C4E71D1D194C0400353AF3 /* MasterList.swift in Sources */,
 				77C4E71F1D194CBD00353AF3 /* Game.swift in Sources */,
 				77C4E7221D19647000353AF3 /* MasterTableViewCell.swift in Sources */,

@@ -51,7 +51,7 @@ class MastersViewModel : NSObject {
     }
     
     func setup(timeInterval: NSTimeInterval = 60 * 60, withCallback : ((data: NSData?, response: NSURLResponse?, error: NSError?)-> Void)? = nil ) {
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://dl.dropboxusercontent.com/u/49130683/nativeapp-test.json")!)
+        let request = Router.Search().URLRequest
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request){ (data, response, error) -> Void in
             if error != nil {
