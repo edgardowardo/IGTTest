@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IGTTestTests/IGTTestTests.swift"
-            timestampString = "488287202.72396"
+            timestampString = "488293872.689629"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
             landmarkName = "testMastersViewModel()"
             landmarkType = "5">
             <Actions>
@@ -152,77 +152,6 @@
             endingLineNumber = "25"
             landmarkName = "GameViewModel"
             landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "Yes"
-            filePath = "IGTTestTests/IGTTestTests.swift"
-            timestampString = "488288917.42366"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "testGameViewModel()"
-            landmarkType = "5">
-            <Actions>
-               <BreakpointActionProxy
-                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
-                  <ActionContent
-                     consoleCommand = "po vm.jackpot">
-                  </ActionContent>
-               </BreakpointActionProxy>
-            </Actions>
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IGTTestTests.IGTTestTests.testGameViewModel () -&gt; ()"
-                  moduleName = "IGTTestTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/edgardoagno/Documents/IGTTest/IGTTestTests/IGTTestTests.swift"
-                  timestampString = "488289000.199659"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "88"
-                  endingLineNumber = "88"
-                  offsetFromSymbolStart = "2576">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IGTTestTests.IGTTestTests.(testGameViewModel () -&gt; ()).(implicit closure #7)"
-                  moduleName = "IGTTestTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/edgardoagno/Documents/IGTTest/IGTTestTests/IGTTestTests.swift"
-                  timestampString = "488289000.200038"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "88"
-                  endingLineNumber = "88"
-                  offsetFromSymbolStart = "93">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IGTTestTests.IGTTestTests.(testGameViewModel () -&gt; ()).(implicit closure #8)"
-                  moduleName = "IGTTestTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/edgardoagno/Documents/IGTTest/IGTTestTests/IGTTestTests.swift"
-                  timestampString = "488289000.200404"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "88"
-                  endingLineNumber = "88"
-                  offsetFromSymbolStart = "33">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
