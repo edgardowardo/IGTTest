@@ -11,6 +11,8 @@ import XCTest
 
 class IGTTestTests: XCTestCase {
     
+    let mc = MasterViewController()
+    
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -21,16 +23,146 @@ class IGTTestTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
+    func testMastersViewModel() {
+        let e = expectationWithDescription("Get drop box data")
+        mc.viewModel.setup(5) { (data, response, error) in
+            XCTAssertNotNil(data, "data should not be nil")
+            XCTAssertNil(error, "error should be nil")
+            XCTAssertEqual(response!.URL!.absoluteString, "https://dl.dropboxusercontent.com/u/49130683/nativeapp-test.json", "HTTP response URL should be equal to original URL")
+            
+            let application = UIApplication.sharedApplication()
+            XCTAssertNotNil(application.scheduledLocalNotifications, "scheduledLocalNotifications should not be nil")
+            if let n = application.scheduledLocalNotifications {
+                let count = n.count
+                XCTAssertGreaterThan(count, 0)
+            }
+            
+            let name = "data"
+            if let fileURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first?.URLByAppendingPathComponent(name), d = NSData(contentsOfURL: fileURL) {
+                
+                do {
+                    let dictionary = try NSJSONSerialization.JSONObjectWithData(d, options: NSJSONReadingOptions(rawValue: 0)) as? NSDictionary
+                    if let d = dictionary, res = d["response"] as? String, dataDict = d["data"] as? [NSDictionary] {
+                        XCTAssertEqual(res, "success", "response should be succcess" )
+                        XCTAssertGreaterThan(dataDict.count, 0)
+                        // Manually trigger notification since not possible to simulate the arrival of the NSLocalNotification.
+                        NSNotificationCenter.defaultCenter().postNotificationName(MastersViewModel.Notification.Identifier.showFile, object: "data")
+                        let count = self.mc.viewModel.model!.data.count
+                        XCTAssertGreaterThan(count, 0)
+                    } else {
+                        XCTAssertFalse(true, "could not be parsed")
+                    }
+                } catch let error as NSError {
+                    XCTAssertFalse(true, "\(error)")
+                }
+            }
+            
+            e.fulfill()
+        }
+        
+        waitForExpectationsWithTimeout(60) { error in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+            }
         }
     }
     
+    func testMasterViewModel() {
+        let cell = MasterTableViewCell()
+        let game = Game(name: "Game 0", jackpot: 0, date: NSDate())
+        cell.viewModel = MasterViewModel(model: game)
+        
+        XCTAssertEqual(cell.textLabel!.text, "Game 0")
+    }
+    
+    func testGameViewModel() {
+
+        NSUserDefaults.standardUserDefaults().setObject(["es"], forKey: "AppleLanguages")
+        NSUserDefaults.standardUserDefaults().synchronize()
+        
+        let d = nsdateFromString("2015-01-25T20:20:30+01:00")!
+        let vm = GameViewModel(currency: "GBP", model: Game(name: "Game 0", jackpot: 100000, date: d))
+        XCTAssertEqual(vm.title, "Game 0")
+        XCTAssertEqual(vm.currency, "GBP")
+        XCTAssertEqual(vm.jackpot, "GBP 100.000")
+        XCTAssertEqual(vm.date, "25/1/2015 19:20")
+        
+        /*
+        //I can't swap the locale within the same test run loop without having an inconsistent state. Any suggestion?
+         
+        NSUserDefaults.standardUserDefaults().setObject(["en-GB"], forKey: "AppleLanguages")
+        NSUserDefaults.standardUserDefaults().synchronize()
+        
+        let d = nsdateFromString("2015-01-25T20:20:30+01:00")!
+        let vm = GameViewModel(currency: "GBP", model: Game(name: "Game 0", jackpot: 100000, date: d))
+        XCTAssertEqual(vm.title, "Game 0")
+        XCTAssertEqual(vm.currency, "GBP")
+        XCTAssertEqual(vm.jackpot, "GBP 100,000")
+        XCTAssertEqual(vm.date, "25 Jan 2015 19:20")
+*/
+        
+    }
 }
+
+func backgroundThread(delay: Double = 0.0, background: (() -> Void)? = nil, completion: (() -> Void)? = nil) {
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+        if(background != nil){ background!(); }
+        
+        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC)))
+        dispatch_after(popTime, dispatch_get_main_queue()) {
+            if(completion != nil){ completion!(); }
+        }
+    }
+}
+
+func nsdateFromString(string : String) -> NSDate? {
+    let formatter = NSDateFormatter()
+    let locale = NSBundle.mainBundle().preferredLocalizations.first ?? "en_UK"
+    formatter.locale = NSLocale(localeIdentifier: locale)
+    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+    
+    guard let date = formatter.dateFromString(string) else {
+        assert(false, "no date from string")
+        return nil
+    }
+    
+    return date
+}
+
+/*
+class IGTTestLocaliseES: XCTestCase {
+    
+    let mc = MasterViewController()
+    
+    override func setUp() {
+        super.setUp()
+        // Put setup code here. This method is called before the invocation of each test method in the class.
+    }
+    
+    override func tearDown() {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
+    }
+    
+    func testGameViewModelES() {
+        
+        let e2 = self.expectationWithDescription("Localisation support for another locale")
+        
+        backgroundThread(5.0, background: nil) {
+            
+            NSUserDefaults.standardUserDefaults().setObject(["es"], forKey: "AppleLanguages")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            
+            let d = nsdateFromString("2015-01-25T20:20:30+01:00")!
+            let vm = GameViewModel(currency: "GBP", model: Game(name: "Game 0", jackpot: 100000, date: d))
+            XCTAssertEqual(vm.title, "Game 0")
+            XCTAssertEqual(vm.currency, "GBP")
+            XCTAssertEqual(vm.jackpot, "GBP 100.000")
+            XCTAssertEqual(vm.date, "25/1/2015 19:20")
+            e2.fulfill()
+        }
+    }
+}
+ 
+ */
+
