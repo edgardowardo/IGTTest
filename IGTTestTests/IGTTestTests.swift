@@ -84,7 +84,7 @@ class IGTTestTests: XCTestCase {
         let vm = GameViewModel(currency: "GBP", model: Game(name: "Game 0", jackpot: 100000, date: d))
         XCTAssertEqual(vm.title, "Game 0")
         XCTAssertEqual(vm.currency, "GBP")
-        XCTAssertEqual(vm.jackpot, "GBP 100.000")
+        XCTAssertEqual(vm.jackpot, "100.000,00 GBP")
         XCTAssertEqual(vm.date, "25/1/2015 19:20")
         
         /*
@@ -97,10 +97,9 @@ class IGTTestTests: XCTestCase {
         let vm = GameViewModel(currency: "GBP", model: Game(name: "Game 0", jackpot: 100000, date: d))
         XCTAssertEqual(vm.title, "Game 0")
         XCTAssertEqual(vm.currency, "GBP")
-        XCTAssertEqual(vm.jackpot, "GBP 100,000")
+        XCTAssertEqual(vm.jackpot, "£100,000.00")
         XCTAssertEqual(vm.date, "25 Jan 2015 19:20")
-*/
-        
+ */
     }
 }
 

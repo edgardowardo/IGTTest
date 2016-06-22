@@ -18,10 +18,11 @@ struct GameViewModel {
     
     var jackpot : String {
         let formatter = NSNumberFormatter()
-        formatter.numberStyle = .DecimalStyle
+        formatter.numberStyle = .CurrencyStyle
+        formatter.currencyCode = currency
         
         if let jackpot = formatter.stringFromNumber(NSNumber(integer: model.jackpot)) {
-            return "\(currency) \(jackpot)"
+            return "\(jackpot)"
         }
         return "\(currency) \(model.jackpot)"
     }
